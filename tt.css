@@ -1,0 +1,88 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+}
+
+
+body{
+    background-color: #000;
+    min-height: 100vh;
+    color: #fff;
+}
+
+
+h1{
+    text-align: center;
+    padding: 40px 0;
+    font-size: 40px;
+    color: #fff;
+}
+
+h1 span{
+    color: #D4AF37;
+}
+
+
+.loja{
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+}
+
+
+.produto{
+    background: #0a0a0a;
+    border: 1px solid #D4AF37;
+    border-radius: 20px;
+    overflow: hidden;
+    text-align: center;
+    transition: .3s;
+}
+
+.produto:hover{
+    transform: scale(1.05);
+    box-shadow: 0 0 20px #D4AF37;
+}
+
+.produto img{
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+}
+
+
+.produto h2{
+    margin: 15px 0 5px;
+    font-size: 20px;
+}
+
+
+.preco{
+    color: #D4AF37;
+    font-size: 22px;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+
+button{
+    background: #D4AF37;
+    border: none;
+    padding: 10px 20px;
+    margin-bottom: 20px;
+    border-radius: 30px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: .3s;
+}
+
+button:hover{
+    transform: scale(1.1);
+    box-shadow: 0 0 10px #D4AF37;
+}
