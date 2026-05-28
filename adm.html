@@ -1,0 +1,988 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin — Painel de Controle</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500&family=DM+Serif+Display&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #F7F5F0;
+      --surface: #FFFFFF;
+      --surface2: #F0EDE6;
+      --border: rgba(0,0,0,0.10);
+      --border2: rgba(0,0,0,0.18);
+      --text: #1A1916;
+      --text2: #6B6860;
+      --text3: #A09D96;
+      --accent: #1A1916;
+      --accent-fg: #F7F5F0;
+      --danger: #A32D2D;
+      --danger-bg: #FCEBEB;
+      --success: #3B6D11;
+      --success-bg: #EAF3DE;
+      --info: #185FA5;
+      --info-bg: #E6F1FB;
+      --radius: 10px;
+      --radius-lg: 14px;
+    }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      font-size: 15px;
+    }
+
+    /* ── LOGIN ── */
+    #login-screen {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 2rem;
+    }
+
+    .login-wrap {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 2.5rem 2rem;
+      width: 100%;
+      max-width: 380px;
+      box-shadow: 0 4px 40px rgba(0,0,0,0.06);
+    }
+
+    .login-logo {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    .login-logo h1 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 28px;
+      font-weight: 400;
+      letter-spacing: 1px;
+      color: var(--text);
+    }
+
+    .login-logo p {
+      font-size: 12px;
+      color: var(--text3);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-top: 4px;
+    }
+
+    .field { margin-bottom: 1rem; }
+    .field label { display: block; font-size: 11px; color: var(--text2); margin-bottom: 5px; letter-spacing: 0.5px; text-transform: uppercase; }
+    .field input {
+      width: 100%;
+      padding: 10px 14px;
+      border: 1px solid var(--border2);
+      border-radius: var(--radius);
+      background: var(--surface2);
+      color: var(--text);
+      font-size: 14px;
+      font-family: 'DM Sans', sans-serif;
+      transition: border-color 0.2s;
+    }
+    .field input:focus { outline: none; border-color: var(--text); }
+
+    .btn-login {
+      width: 100%;
+      padding: 12px;
+      background: var(--accent);
+      color: var(--accent-fg);
+      border: none;
+      border-radius: var(--radius);
+      font-size: 13px;
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 500;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      cursor: pointer;
+      margin-top: 0.5rem;
+      transition: opacity 0.2s;
+    }
+    .btn-login:hover { opacity: 0.85; }
+
+    .login-hint {
+      font-size: 11px;
+      color: var(--text3);
+      text-align: center;
+      margin-top: 1.25rem;
+      background: var(--surface2);
+      padding: 8px 12px;
+      border-radius: var(--radius);
+    }
+
+    .err { color: var(--danger); font-size: 12px; text-align: center; margin-top: 0.5rem; min-height: 18px; }
+
+    /* ── PAINEL ── */
+    #adm-panel { display: none; }
+
+    .sidebar {
+      position: fixed;
+      top: 0; left: 0;
+      width: 220px;
+      height: 100vh;
+      background: var(--accent);
+      color: var(--accent-fg);
+      display: flex;
+      flex-direction: column;
+      padding: 1.75rem 1.25rem;
+      z-index: 100;
+    }
+
+    .sidebar-logo h2 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 22px;
+      font-weight: 400;
+      color: var(--accent-fg);
+      letter-spacing: 0.5px;
+    }
+
+    .sidebar-logo p {
+      font-size: 10px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: rgba(247,245,240,0.45);
+      margin-top: 2px;
+    }
+
+    .sidebar-nav {
+      margin-top: 2.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      flex: 1;
+    }
+
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 12px;
+      border-radius: var(--radius);
+      font-size: 13px;
+      color: rgba(247,245,240,0.6);
+      cursor: pointer;
+      border: none;
+      background: transparent;
+      font-family: 'DM Sans', sans-serif;
+      transition: background 0.15s, color 0.15s;
+      text-align: left;
+      width: 100%;
+    }
+    .nav-item:hover { background: rgba(247,245,240,0.08); color: var(--accent-fg); }
+    .nav-item.active { background: rgba(247,245,240,0.12); color: var(--accent-fg); font-weight: 500; }
+    .nav-item i { font-size: 18px; }
+
+    .sidebar-bottom {
+      padding-top: 1rem;
+      border-top: 1px solid rgba(247,245,240,0.12);
+    }
+
+    .main-content {
+      margin-left: 220px;
+      padding: 2rem;
+      min-height: 100vh;
+    }
+
+    .page-header {
+      margin-bottom: 1.75rem;
+    }
+    .page-header h2 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 26px;
+      font-weight: 400;
+    }
+    .page-header p { font-size: 13px; color: var(--text2); margin-top: 4px; }
+
+    /* ── STATS ── */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 12px;
+      margin-bottom: 1.75rem;
+    }
+
+    .stat-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 1.25rem;
+    }
+
+    .stat-label { font-size: 11px; color: var(--text3); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 8px; }
+    .stat-value { font-size: 26px; font-family: 'DM Serif Display', serif; font-weight: 400; color: var(--text); }
+
+    /* ── CARD ── */
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 1.5rem;
+    }
+
+    .card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1.25rem;
+    }
+
+    .card-title { font-size: 15px; font-weight: 500; }
+
+    /* ── BUTTONS ── */
+    .btn-primary {
+      background: var(--accent);
+      color: var(--accent-fg);
+      border: none;
+      padding: 9px 16px;
+      border-radius: var(--radius);
+      font-size: 12px;
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 500;
+      letter-spacing: 0.5px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: opacity 0.2s;
+    }
+    .btn-primary:hover { opacity: 0.8; }
+
+    .btn-ghost {
+      background: transparent;
+      border: 1px solid var(--border2);
+      color: var(--text2);
+      padding: 8px 14px;
+      border-radius: var(--radius);
+      font-size: 12px;
+      font-family: 'DM Sans', sans-serif;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: background 0.15s;
+    }
+    .btn-ghost:hover { background: var(--surface2); }
+
+    .btn-danger {
+      background: transparent;
+      border: 1px solid rgba(163,45,45,0.3);
+      color: var(--danger);
+      padding: 8px 14px;
+      border-radius: var(--radius);
+      font-size: 12px;
+      font-family: 'DM Sans', sans-serif;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .btn-icon {
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--text2);
+      padding: 6px 9px;
+      border-radius: var(--radius);
+      font-size: 13px;
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+    .btn-icon:hover { background: var(--surface2); }
+    .btn-icon.del { border-color: rgba(163,45,45,0.25); color: var(--danger); }
+
+    /* ── FORM ── */
+    .form-add {
+      background: var(--surface2);
+      border-radius: var(--radius);
+      padding: 1.25rem;
+      margin-bottom: 1.25rem;
+      display: none;
+      border: 1px solid var(--border);
+    }
+    .form-add.open { display: block; }
+
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px; }
+    .form-row-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; margin-bottom: 12px; }
+
+    .f-field label { font-size: 11px; color: var(--text2); display: block; margin-bottom: 5px; letter-spacing: 0.3px; text-transform: uppercase; }
+    .f-field input,
+    .f-field select,
+    .f-field textarea {
+      width: 100%;
+      padding: 9px 12px;
+      border: 1px solid var(--border2);
+      border-radius: var(--radius);
+      background: var(--surface);
+      color: var(--text);
+      font-size: 13px;
+      font-family: 'DM Sans', sans-serif;
+    }
+    .f-field input:focus,
+    .f-field select:focus,
+    .f-field textarea:focus { outline: none; border-color: var(--text); }
+    .f-field textarea { resize: vertical; min-height: 70px; }
+
+    .form-actions { display: flex; gap: 8px; margin-top: 8px; }
+
+    /* ── SEARCH ── */
+    .search-wrap {
+      position: relative;
+      margin-bottom: 1rem;
+    }
+    .search-wrap i {
+      position: absolute;
+      left: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text3);
+      font-size: 16px;
+      pointer-events: none;
+    }
+    .search-wrap input {
+      width: 100%;
+      padding: 9px 12px 9px 38px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: var(--surface2);
+      color: var(--text);
+      font-size: 13px;
+      font-family: 'DM Sans', sans-serif;
+    }
+    .search-wrap input:focus { outline: none; border-color: var(--border2); }
+
+    /* ── LIST ── */
+    .list-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 0;
+      border-bottom: 1px solid var(--border);
+      gap: 12px;
+    }
+    .list-item:last-child { border-bottom: none; }
+
+    .item-info { flex: 1; min-width: 0; }
+    .item-name { font-size: 14px; font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .item-sub { font-size: 12px; color: var(--text3); margin-top: 3px; }
+
+    .item-badges { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; justify-content: flex-end; margin-right: 8px; }
+
+    .badge {
+      font-size: 11px;
+      padding: 3px 10px;
+      border-radius: 20px;
+      font-weight: 500;
+    }
+    .badge-cat { background: var(--info-bg); color: var(--info); }
+    .badge-price { background: var(--success-bg); color: var(--success); }
+    .badge-estoque-low { background: var(--danger-bg); color: var(--danger); }
+
+    .item-actions { display: flex; gap: 6px; flex-shrink: 0; }
+
+    /* ── CANDIDATOS ── */
+    .cand-item {
+      padding: 14px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .cand-item:last-child { border-bottom: none; }
+    .cand-name { font-size: 14px; font-weight: 500; }
+    .cand-details { display: flex; gap: 18px; margin-top: 5px; flex-wrap: wrap; }
+    .cand-detail { font-size: 12px; color: var(--text2); display: flex; align-items: center; gap: 5px; }
+    .cand-detail i { font-size: 14px; }
+
+    /* ── CONFIG ── */
+    .config-section { margin-bottom: 1.75rem; }
+    .config-section h3 { font-size: 13px; font-weight: 500; letter-spacing: 0.5px; text-transform: uppercase; color: var(--text2); margin-bottom: 1rem; padding-bottom: 8px; border-bottom: 1px solid var(--border); }
+
+    .danger-zone { padding: 1rem; border: 1px solid rgba(163,45,45,0.2); border-radius: var(--radius); background: var(--danger-bg); }
+    .danger-zone p { font-size: 12px; color: var(--danger); margin-bottom: 0.75rem; }
+
+    /* ── SECTION VISIBILITY ── */
+    .section { display: none; }
+    .section.active { display: block; }
+
+    /* ── EMPTY ── */
+    .empty {
+      text-align: center;
+      padding: 2.5rem 1rem;
+      color: var(--text3);
+    }
+    .empty i { font-size: 36px; margin-bottom: 0.75rem; display: block; }
+    .empty p { font-size: 13px; }
+
+    /* ── TOAST ── */
+    #toast {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      background: var(--accent);
+      color: var(--accent-fg);
+      padding: 12px 20px;
+      border-radius: var(--radius);
+      font-size: 13px;
+      font-weight: 500;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s;
+      z-index: 999;
+    }
+    #toast.show { opacity: 1; }
+
+    @media (max-width: 768px) {
+      .sidebar { width: 100%; height: auto; position: relative; flex-direction: row; align-items: center; padding: 1rem; }
+      .sidebar-nav { flex-direction: row; margin-top: 0; margin-left: 1rem; }
+      .sidebar-logo p { display: none; }
+      .main-content { margin-left: 0; padding: 1rem; }
+      .form-row, .form-row-3 { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══ LOGIN ══ -->
+<div id="login-screen">
+  <div class="login-wrap">
+    <div class="login-logo">
+      <h1>Admin</h1>
+      <p>Painel de Controle</p>
+    </div>
+    <div class="field">
+      <label>Usuário</label>
+      <input type="text" id="user-in" placeholder="admin" autocomplete="username" />
+    </div>
+    <div class="field">
+      <label>Senha</label>
+      <input type="password" id="pass-in" placeholder="••••••" autocomplete="current-password" />
+    </div>
+    <button class="btn-login" onclick="fazerLogin()">Entrar</button>
+    <p class="err" id="login-err"></p>
+    <div class="login-hint">
+      Usuário: <strong>admin</strong> &nbsp;·&nbsp; Senha: <strong>1234</strong><br>
+      <small>(altere a senha nas Configurações)</small>
+    </div>
+  </div>
+</div>
+
+<!-- ══ PAINEL ══ -->
+<div id="adm-panel">
+
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="sidebar-logo">
+      <h2 id="nome-loja">Admin</h2>
+      <p>Painel de Controle</p>
+    </div>
+    <nav class="sidebar-nav">
+      <button class="nav-item active" onclick="mudarAba('dashboard', this)">
+        <i class="ti ti-layout-dashboard"></i> Dashboard
+      </button>
+      <button class="nav-item" onclick="mudarAba('produtos', this)">
+        <i class="ti ti-shirt"></i> Produtos
+      </button>
+      <button class="nav-item" onclick="mudarAba('candidatos', this)">
+        <i class="ti ti-users"></i> Candidatos
+      </button>
+      <button class="nav-item" onclick="mudarAba('config', this)">
+        <i class="ti ti-settings"></i> Configurações
+      </button>
+    </nav>
+    <div class="sidebar-bottom">
+      <button class="nav-item" onclick="sair()">
+        <i class="ti ti-logout"></i> Sair
+      </button>
+    </div>
+  </aside>
+
+  <!-- Conteúdo principal -->
+  <main class="main-content">
+
+    <!-- ── DASHBOARD ── -->
+    <div class="section active" id="sec-dashboard">
+      <div class="page-header">
+        <h2>Dashboard</h2>
+        <p id="data-hoje"></p>
+      </div>
+      <div class="stats-grid" id="stats-grid"></div>
+      <div class="card">
+        <div class="card-header">
+          <span class="card-title">Produtos com Estoque Baixo</span>
+        </div>
+        <div id="lista-estoque-baixo"></div>
+      </div>
+    </div>
+
+    <!-- ── PRODUTOS ── -->
+    <div class="section" id="sec-produtos">
+      <div class="page-header">
+        <h2>Produtos</h2>
+        <p>Gerencie o catálogo da sua loja</p>
+      </div>
+      <div class="card">
+        <div class="card-header">
+          <span class="card-title">Catálogo</span>
+          <button class="btn-primary" onclick="toggleForm('form-produto')">
+            <i class="ti ti-plus"></i> Novo Produto
+          </button>
+        </div>
+
+        <!-- Formulário de produto -->
+        <div class="form-add" id="form-produto">
+          <div class="form-row">
+            <div class="f-field">
+              <label>Nome do Produto *</label>
+              <input type="text" id="p-nome" placeholder="Ex: Vestido Floral Midi" />
+            </div>
+            <div class="f-field">
+              <label>Categoria</label>
+              <select id="p-cat">
+                <option>Vestidos</option>
+                <option>Blusas</option>
+                <option>Calças</option>
+                <option>Saias</option>
+                <option>Acessórios</option>
+                <option>Calçados</option>
+                <option>Casacos</option>
+                <option>Outro</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-row-3">
+            <div class="f-field">
+              <label>Preço (R$) *</label>
+              <input type="number" id="p-preco" placeholder="0.00" step="0.01" min="0" />
+            </div>
+            <div class="f-field">
+              <label>Estoque</label>
+              <input type="number" id="p-estoque" placeholder="0" min="0" />
+            </div>
+            <div class="f-field">
+              <label>Estilo / Tags</label>
+              <input type="text" id="p-estilo" placeholder="casual, moderno, floral..." />
+            </div>
+          </div>
+          <div class="f-field" style="margin-bottom: 0;">
+            <label>Descrição</label>
+            <textarea id="p-desc" placeholder="Descreva o produto para o sistema de recomendação..."></textarea>
+          </div>
+          <div class="form-actions" style="margin-top: 12px;">
+            <button class="btn-primary" onclick="salvarProduto()">
+              <i class="ti ti-check"></i> Salvar
+            </button>
+            <button class="btn-ghost" onclick="cancelarForm()">Cancelar</button>
+          </div>
+        </div>
+
+        <div class="search-wrap">
+          <i class="ti ti-search"></i>
+          <input type="text" placeholder="Buscar produto..." oninput="filtrarProdutos(this.value)" />
+        </div>
+        <div id="lista-produtos"></div>
+      </div>
+    </div>
+
+    <!-- ── CANDIDATOS ── -->
+    <div class="section" id="sec-candidatos">
+      <div class="page-header">
+        <h2>Candidatos</h2>
+        <p>Pessoas que preencheram o formulário do site</p>
+      </div>
+      <div class="card">
+        <div class="card-header">
+          <span class="card-title">Lista de Candidatos</span>
+          <button class="btn-ghost" onclick="exportarCSV()">
+            <i class="ti ti-download"></i> Exportar CSV
+          </button>
+        </div>
+        <div class="search-wrap">
+          <i class="ti ti-search"></i>
+          <input type="text" placeholder="Buscar por nome ou email..." oninput="filtrarCandidatos(this.value)" />
+        </div>
+        <div id="lista-candidatos"></div>
+      </div>
+    </div>
+
+    <!-- ── CONFIGURAÇÕES ── -->
+    <div class="section" id="sec-config">
+      <div class="page-header">
+        <h2>Configurações</h2>
+        <p>Personalize o painel</p>
+      </div>
+      <div class="card">
+        <div class="config-section">
+          <h3>Identidade da Loja</h3>
+          <div class="form-row">
+            <div class="f-field">
+              <label>Nome da Loja</label>
+              <input type="text" id="cfg-nome" placeholder="Minha Loja" />
+            </div>
+          </div>
+        </div>
+        <div class="config-section">
+          <h3>Segurança</h3>
+          <div class="form-row">
+            <div class="f-field">
+              <label>Nova Senha ADM</label>
+              <input type="password" id="cfg-senha" placeholder="Digite uma nova senha..." />
+            </div>
+            <div class="f-field">
+              <label>Confirmar Nova Senha</label>
+              <input type="password" id="cfg-senha2" placeholder="Repita a senha..." />
+            </div>
+          </div>
+        </div>
+        <div class="form-actions" style="margin-bottom: 2rem;">
+          <button class="btn-primary" onclick="salvarConfig()">
+            <i class="ti ti-check"></i> Salvar Configurações
+          </button>
+        </div>
+        <div class="config-section">
+          <h3>Zona de Perigo</h3>
+          <div class="danger-zone">
+            <p>Esta ação é irreversível. Todos os produtos cadastrados serão apagados.</p>
+            <button class="btn-danger" onclick="limparProdutos()">
+              <i class="ti ti-trash"></i> Apagar todos os produtos
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<!-- Toast -->
+<div id="toast"></div>
+
+<script>
+  /* ── ESTADO ── */
+  let ADM_PASS = localStorage.getItem('adm_senha') || '1234';
+  let produtos = JSON.parse(localStorage.getItem('adm_produtos') || '[]');
+  let editandoId = null;
+
+  /* ── LOGIN ── */
+  function fazerLogin() {
+    const u = document.getElementById('user-in').value.trim();
+    const p = document.getElementById('pass-in').value;
+    const err = document.getElementById('login-err');
+    if (u === 'admin' && p === ADM_PASS) {
+      document.getElementById('login-screen').style.display = 'none';
+      document.getElementById('adm-panel').style.display = 'block';
+      inicializar();
+    } else {
+      err.textContent = 'Usuário ou senha incorretos.';
+    }
+  }
+
+  document.getElementById('pass-in').addEventListener('keydown', e => {
+    if (e.key === 'Enter') fazerLogin();
+  });
+
+  function sair() {
+    document.getElementById('login-screen').style.display = 'flex';
+    document.getElementById('adm-panel').style.display = 'none';
+    document.getElementById('user-in').value = '';
+    document.getElementById('pass-in').value = '';
+    document.getElementById('login-err').textContent = '';
+  }
+
+  /* ── NAVEGAÇÃO ── */
+  function mudarAba(id, btn) {
+    document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+    document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('sec-' + id).classList.add('active');
+    if (id === 'dashboard') renderDashboard();
+    if (id === 'produtos') renderListaProdutos();
+    if (id === 'candidatos') renderListaCandidatos();
+  }
+
+  /* ── TOAST ── */
+  function toast(msg) {
+    const el = document.getElementById('toast');
+    el.textContent = msg;
+    el.classList.add('show');
+    setTimeout(() => el.classList.remove('show'), 2500);
+  }
+
+  /* ── FORM PRODUTO ── */
+  function toggleForm(id) {
+    const f = document.getElementById(id);
+    f.classList.toggle('open');
+    if (!f.classList.contains('open')) limparFormProduto();
+  }
+
+  function cancelarForm() {
+    document.getElementById('form-produto').classList.remove('open');
+    limparFormProduto();
+  }
+
+  function limparFormProduto() {
+    ['p-nome', 'p-preco', 'p-estoque', 'p-estilo', 'p-desc'].forEach(id => {
+      document.getElementById(id).value = '';
+    });
+    document.getElementById('p-cat').selectedIndex = 0;
+    editandoId = null;
+  }
+
+  function salvarProduto() {
+    const nome = document.getElementById('p-nome').value.trim();
+    const preco = parseFloat(document.getElementById('p-preco').value) || 0;
+    if (!nome) { toast('Informe o nome do produto.'); return; }
+    if (preco <= 0) { toast('Informe um preço válido.'); return; }
+
+    const dados = {
+      nome,
+      cat: document.getElementById('p-cat').value,
+      preco,
+      estoque: parseInt(document.getElementById('p-estoque').value) || 0,
+      estilo: document.getElementById('p-estilo').value.trim(),
+      desc: document.getElementById('p-desc').value.trim(),
+    };
+
+    if (editandoId !== null) {
+      const i = produtos.findIndex(p => p.id === editandoId);
+      if (i > -1) produtos[i] = { ...produtos[i], ...dados };
+      toast('Produto atualizado!');
+      editandoId = null;
+    } else {
+      produtos.push({ id: Date.now(), ...dados, criado: new Date().toLocaleDateString('pt-BR') });
+      toast('Produto adicionado!');
+    }
+
+    salvarProdutosLS();
+    cancelarForm();
+    renderListaProdutos();
+    atualizarStats();
+  }
+
+  function editarProduto(id) {
+    const p = produtos.find(x => x.id === id);
+    if (!p) return;
+    editandoId = id;
+    document.getElementById('p-nome').value = p.nome;
+    document.getElementById('p-cat').value = p.cat;
+    document.getElementById('p-preco').value = p.preco;
+    document.getElementById('p-estoque').value = p.estoque;
+    document.getElementById('p-estilo').value = p.estilo || '';
+    document.getElementById('p-desc').value = p.desc || '';
+    const f = document.getElementById('form-produto');
+    if (!f.classList.contains('open')) f.classList.add('open');
+    f.scrollIntoView({ behavior: 'smooth' });
+  }
+
+  function deletarProduto(id) {
+    if (!confirm('Deletar este produto? Esta ação não pode ser desfeita.')) return;
+    produtos = produtos.filter(p => p.id !== id);
+    salvarProdutosLS();
+    renderListaProdutos();
+    atualizarStats();
+    toast('Produto removido.');
+  }
+
+  function salvarProdutosLS() {
+    localStorage.setItem('adm_produtos', JSON.stringify(produtos));
+  }
+
+  /* ── RENDER PRODUTOS ── */
+  function filtrarProdutos(q) {
+    renderListaProdutos(q);
+  }
+
+  function renderListaProdutos(q = '') {
+    const el = document.getElementById('lista-produtos');
+    const lista = q
+      ? produtos.filter(p =>
+          p.nome.toLowerCase().includes(q.toLowerCase()) ||
+          p.cat.toLowerCase().includes(q.toLowerCase()) ||
+          (p.estilo || '').toLowerCase().includes(q.toLowerCase())
+        )
+      : produtos;
+
+    if (!lista.length) {
+      el.innerHTML = `<div class="empty">
+        <i class="ti ti-shirt"></i>
+        <p>${q ? 'Nenhum produto encontrado para "' + q + '".' : 'Nenhum produto cadastrado ainda.<br>Clique em "+ Novo Produto" para começar.'}</p>
+      </div>`;
+      return;
+    }
+
+    el.innerHTML = lista.map(p => `
+      <div class="list-item">
+        <div class="item-info">
+          <div class="item-name">${p.nome}</div>
+          <div class="item-sub">Adicionado em ${p.criado || '—'} · Estoque: ${p.estoque} ${p.estilo ? '· ' + p.estilo : ''}</div>
+        </div>
+        <div class="item-badges">
+          <span class="badge badge-cat">${p.cat}</span>
+          <span class="badge badge-price">R$ ${p.preco.toFixed(2)}</span>
+          ${p.estoque <= 3 ? '<span class="badge badge-estoque-low">Estoque baixo</span>' : ''}
+        </div>
+        <div class="item-actions">
+          <button class="btn-icon" onclick="editarProduto(${p.id})" title="Editar"><i class="ti ti-edit"></i></button>
+          <button class="btn-icon del" onclick="deletarProduto(${p.id})" title="Deletar"><i class="ti ti-trash"></i></button>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  /* ── CANDIDATOS ── */
+  function getCandidatos() {
+    const raw = localStorage.getItem('candidato');
+    if (!raw) return [];
+    try {
+      const d = JSON.parse(raw);
+      if (Array.isArray(d) && typeof d[0] === 'string') return [{ nome: d[0], email: d[1], data: d[2] }];
+      if (Array.isArray(d) && Array.isArray(d[0])) return d.map(c => ({ nome: c[0], email: c[1], data: c[2] }));
+      return [];
+    } catch { return []; }
+  }
+
+  function filtrarCandidatos(q) {
+    renderListaCandidatos(q);
+  }
+
+  function renderListaCandidatos(q = '') {
+    const el = document.getElementById('lista-candidatos');
+    const todos = getCandidatos();
+    const lista = q
+      ? todos.filter(c =>
+          (c.nome || '').toLowerCase().includes(q.toLowerCase()) ||
+          (c.email || '').toLowerCase().includes(q.toLowerCase())
+        )
+      : todos;
+
+    if (!lista.length) {
+      el.innerHTML = `<div class="empty">
+        <i class="ti ti-users"></i>
+        <p>${q ? 'Nenhum candidato encontrado.' : 'Nenhum candidato cadastrado ainda.<br>Os candidatos aparecem quando alguém preenche o formulário do site.'}</p>
+      </div>`;
+      return;
+    }
+
+    el.innerHTML = lista.map(c => `
+      <div class="cand-item">
+        <div class="cand-name">${c.nome || '—'}</div>
+        <div class="cand-details">
+          <span class="cand-detail"><i class="ti ti-mail"></i>${c.email || '—'}</span>
+          <span class="cand-detail"><i class="ti ti-calendar"></i>${c.data || '—'}</span>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  function exportarCSV() {
+    const todos = getCandidatos();
+    if (!todos.length) { toast('Nenhum candidato para exportar.'); return; }
+    const csv = 'Nome,Email,Data\n' + todos.map(c => `"${c.nome}","${c.email}","${c.data}"`).join('\n');
+    const a = document.createElement('a');
+    a.href = 'data:text/csv;charset=utf-8,' + encodeURIComponent(csv);
+    a.download = 'candidatos.csv';
+    a.click();
+    toast('CSV exportado!');
+  }
+
+  /* ── DASHBOARD ── */
+  function atualizarStats() {
+    const cands = getCandidatos();
+    const totalEstoque = produtos.reduce((s, p) => s + p.estoque, 0);
+    const totalValor = produtos.reduce((s, p) => s + p.preco * p.estoque, 0);
+    const cats = [...new Set(produtos.map(p => p.cat))].length;
+
+    const el = document.getElementById('stats-grid');
+    if (el) el.innerHTML = `
+      <div class="stat-card">
+        <div class="stat-label">Produtos</div>
+        <div class="stat-value">${produtos.length}</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Itens em Estoque</div>
+        <div class="stat-value">${totalEstoque}</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Valor Total</div>
+        <div class="stat-value">R$ ${totalValor.toLocaleString('pt-BR', { minimumFractionDigits: 0, maximumFractionDigits: 0 })}</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Categorias</div>
+        <div class="stat-value">${cats}</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Candidatos</div>
+        <div class="stat-value">${cands.length}</div>
+      </div>
+    `;
+  }
+
+  function renderDashboard() {
+    atualizarStats();
+    const el = document.getElementById('lista-estoque-baixo');
+    const baixo = produtos.filter(p => p.estoque <= 3);
+    if (!baixo.length) {
+      el.innerHTML = '<div class="empty"><i class="ti ti-check"></i><p>Todos os produtos têm estoque adequado.</p></div>';
+      return;
+    }
+    el.innerHTML = baixo.map(p => `
+      <div class="list-item">
+        <div class="item-info">
+          <div class="item-name">${p.nome}</div>
+          <div class="item-sub">${p.cat}</div>
+        </div>
+        <span class="badge badge-estoque-low">${p.estoque} unid.</span>
+      </div>
+    `).join('');
+  }
+
+  /* ── CONFIGURAÇÕES ── */
+  function salvarConfig() {
+    const nome = document.getElementById('cfg-nome').value.trim();
+    const senha = document.getElementById('cfg-senha').value;
+    const senha2 = document.getElementById('cfg-senha2').value;
+
+    if (senha && senha !== senha2) { toast('As senhas não coincidem.'); return; }
+    if (senha) {
+      ADM_PASS = senha;
+      localStorage.setItem('adm_senha', senha);
+    }
+    if (nome) {
+      localStorage.setItem('adm_nome_loja', nome);
+      document.getElementById('nome-loja').textContent = nome;
+    }
+    toast('Configurações salvas!');
+  }
+
+  function limparProdutos() {
+    if (!confirm('Apagar TODOS os produtos? Isso não pode ser desfeito.')) return;
+    produtos = [];
+    salvarProdutosLS();
+    renderListaProdutos();
+    atualizarStats();
+    toast('Produtos apagados.');
+  }
+
+  /* ── INICIALIZAÇÃO ── */
+  function inicializar() {
+    const nomeSalvo = localStorage.getItem('adm_nome_loja');
+    if (nomeSalvo) document.getElementById('nome-loja').textContent = nomeSalvo;
+    const cfg = document.getElementById('cfg-nome');
+    if (cfg && nomeSalvo) cfg.value = nomeSalvo;
+    document.getElementById('data-hoje').textContent =
+      new Date().toLocaleDateString('pt-BR', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+    renderDashboard();
+  }
+</script>
+
+</body>
+</html>
