@@ -1,0 +1,749 @@
+/* ============================================
+   texte03dapersonalidade3.css + ia-estilo.css
+   ARQUIVO UNIFICADO — salve como ia-estilo.css
+   ============================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,400;0,500;1,400&display=swap');
+
+:root {
+    --gold: #D4AF37;
+    --gold-light: #FFD86B;
+    --gold-glow: rgba(212, 175, 55, 0.35);
+    --bg: #000;
+    --bg-card: #111;
+    --bg-deep: #0a0a0a;
+    --border: rgba(212, 175, 55, 0.18);
+    --text-muted: #888;
+    --text-dim: #555;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'DM Sans', sans-serif;
+}
+
+body {
+    background-color: var(--bg);
+    color: #fff;
+    min-height: 100vh;
+}
+
+/* ── CONTAINER ── */
+.interface {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* ── HEADER ── */
+header {
+    padding: 20px 4%;
+    border-bottom: 1px solid var(--border);
+    background: var(--bg);
+    position: relative;
+    z-index: 10;
+}
+
+header .interface {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+/* ── LOGO ── */
+.logo h2,
+.logo a {
+    color: var(--gold);
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 34px;
+    letter-spacing: 4px;
+    text-decoration: none;
+    transition: 0.4s ease;
+    display: inline-block;
+}
+
+.logo h2:hover,
+.logo a:hover {
+    color: var(--gold-light);
+    text-shadow: 0 0 8px var(--gold), 0 0 20px var(--gold), 0 0 40px var(--gold-glow);
+    transform: scale(1.05);
+}
+
+/* ── MENU ── */
+header nav ul {
+    list-style: none;
+    display: flex;
+    gap: 40px;
+}
+
+header nav ul li a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 14px;
+    letter-spacing: 0.5px;
+    transition: 0.3s;
+}
+
+header nav ul li a:hover {
+    color: var(--gold);
+}
+
+/* ── BOTÃO CONTATO ── */
+.btn-contato button {
+    padding: 11px 28px;
+    border: 1.5px solid var(--gold);
+    border-radius: 30px;
+    background: transparent;
+    color: var(--gold);
+    font-weight: 500;
+    font-size: 14px;
+    cursor: pointer;
+    transition: 0.3s ease;
+    letter-spacing: 0.5px;
+}
+
+.btn-contato button:hover {
+    color: var(--gold-light);
+    border-color: var(--gold-light);
+    box-shadow: 0 0 16px var(--gold-glow), 0 0 32px rgba(212,175,55,0.15);
+    transform: scale(1.06);
+}
+
+/* ── TÍTULO PRINCIPAL ── */
+h1 {
+    text-align: center;
+    padding: 60px 20px 40px;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 56px;
+    letter-spacing: 6px;
+    font-weight: 400;
+}
+
+h1 span {
+    color: var(--gold);
+}
+
+/* ══════════════════════════════════════════
+   IA DE ESTILO
+══════════════════════════════════════════ */
+.ia-style {
+    padding: 60px 0 80px;
+}
+
+.ia-style .titulo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 48px;
+    letter-spacing: 6px;
+    font-weight: 400;
+    text-align: center;
+    margin-bottom: 6px;
+}
+
+.ia-style .titulo span {
+    color: var(--gold);
+}
+
+.ia-subtitle {
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 13px;
+    margin-bottom: 36px;
+    letter-spacing: 0.3px;
+}
+
+.ia-subtitle strong {
+    color: var(--gold);
+    font-weight: 500;
+}
+
+/* ── BOX PRINCIPAL ── */
+.ia-box {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 36px 40px;
+    max-width: 780px;
+    margin: 0 auto;
+    position: relative;
+    overflow: hidden;
+}
+
+/* brilho de fundo sutil */
+.ia-box::before {
+    content: '';
+    position: absolute;
+    top: -60px;
+    right: -60px;
+    width: 220px;
+    height: 220px;
+    background: radial-gradient(circle, rgba(212,175,55,0.07) 0%, transparent 70%);
+    pointer-events: none;
+}
+
+.ia-box-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 20px;
+}
+
+.ia-status-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #2a9d8f;
+    flex-shrink: 0;
+    animation: pulse-dot 2s ease-in-out infinite;
+}
+
+@keyframes pulse-dot {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+}
+
+.ia-status-text {
+    font-size: 11px;
+    color: var(--text-dim);
+    letter-spacing: 0.5px;
+}
+
+.ia-box h3 {
+    font-size: 20px;
+    font-weight: 500;
+    margin-bottom: 8px;
+    color: #fff;
+}
+
+.ia-box > p {
+    color: var(--text-muted);
+    font-size: 14px;
+    line-height: 1.6;
+    margin-bottom: 22px;
+}
+
+/* ── TAGS ── */
+.ia-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 18px;
+}
+
+.ia-tag {
+    background: #1a1a1a;
+    border: 1px solid #2a2a2a;
+    border-radius: 20px;
+    padding: 5px 14px;
+    font-size: 12px;
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: 0.2s ease;
+    letter-spacing: 0.3px;
+}
+
+.ia-tag:hover,
+.ia-tag.active {
+    border-color: var(--gold);
+    color: var(--gold);
+    background: rgba(212,175,55,0.07);
+}
+
+/* ── INPUT ── */
+.ia-input {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.ia-input input {
+    flex: 1;
+    background: #1a1a1a;
+    border: 1px solid #2e2e2e;
+    border-radius: 10px;
+    color: #fff;
+    font-size: 14px;
+    font-family: 'DM Sans', sans-serif;
+    padding: 12px 16px;
+    outline: none;
+    transition: 0.25s;
+}
+
+.ia-input input::placeholder {
+    color: #444;
+}
+
+.ia-input input:focus {
+    border-color: var(--gold);
+    box-shadow: 0 0 0 3px rgba(212,175,55,0.1);
+}
+
+.ia-input button {
+    background: var(--gold);
+    color: #000;
+    border: none;
+    border-radius: 10px;
+    padding: 12px 22px;
+    font-weight: 500;
+    font-size: 14px;
+    font-family: 'DM Sans', sans-serif;
+    cursor: pointer;
+    transition: 0.25s;
+    white-space: nowrap;
+    position: relative;
+    overflow: hidden;
+}
+
+.ia-input button:hover {
+    background: var(--gold-light);
+    transform: scale(1.04);
+    box-shadow: 0 0 18px var(--gold-glow);
+}
+
+.ia-input button::before {
+    content: '';
+    position: absolute;
+    top: 0; left: -100%;
+    width: 100%; height: 100%;
+    background: linear-gradient(120deg, transparent, rgba(255,255,255,0.5), transparent);
+    transition: 0.5s;
+}
+
+.ia-input button:hover::before {
+    left: 100%;
+}
+
+/* ── ETAPAS DO ALGORITMO ── */
+.ia-steps {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 24px;
+    flex-wrap: wrap;
+}
+
+.ia-step {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    padding: 6px 12px;
+    border-radius: 8px;
+    font-size: 12px;
+    color: var(--text-dim);
+    border: 1px solid #1e1e1e;
+    background: #0f0f0f;
+    transition: 0.3s ease;
+    letter-spacing: 0.2px;
+}
+
+.ia-step.active {
+    background: rgba(212,175,55,0.08);
+    border-color: rgba(212,175,55,0.3);
+    color: var(--gold);
+}
+
+.step-num {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: #222;
+    color: #555;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    flex-shrink: 0;
+    transition: 0.3s;
+}
+
+.ia-step.active .step-num {
+    background: var(--gold);
+    color: #000;
+}
+
+/* ── RESULTADOS ── */
+.resultado-ia {
+    background: #0f0f0f;
+    border: 1px solid #1e1e1e;
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.resultado-ia h4 {
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--text-dim);
+    margin-bottom: 14px;
+    font-weight: 500;
+}
+
+.resultado-ia ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.result-placeholder {
+    color: #333;
+    font-size: 13px;
+    text-align: center;
+    padding: 8px 0;
+}
+
+/* card de resultado */
+.result-item {
+    background: #1a1a1a;
+    border: 1px solid #242424;
+    border-radius: 10px;
+    padding: 12px 14px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    transition: 0.2s;
+    animation: fadeInUp 0.3s ease both;
+}
+
+.result-item:hover {
+    border-color: var(--gold);
+}
+
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(8px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+.result-rank {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: rgba(212,175,55,0.1);
+    border: 1px solid rgba(212,175,55,0.4);
+    color: var(--gold);
+    font-size: 12px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.result-info {
+    flex: 1;
+}
+
+.result-name {
+    font-size: 14px;
+    font-weight: 500;
+    color: #fff;
+    margin-bottom: 6px;
+}
+
+.result-cat {
+    display: inline-block;
+    background: rgba(212,175,55,0.1);
+    color: var(--gold);
+    border-radius: 4px;
+    font-size: 10px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 2px 8px;
+    margin-bottom: 8px;
+}
+
+.result-bar-wrap { width: 100%; }
+
+.result-bar-labels {
+    display: flex;
+    justify-content: space-between;
+    font-size: 11px;
+    color: #555;
+    margin-bottom: 4px;
+}
+
+.result-bar-labels span:last-child {
+    color: var(--gold);
+    font-weight: 500;
+}
+
+.result-bar-bg {
+    background: #252525;
+    border-radius: 4px;
+    height: 5px;
+    overflow: hidden;
+}
+
+.result-bar {
+    height: 5px;
+    border-radius: 4px;
+    background: linear-gradient(90deg, var(--gold), var(--gold-light));
+    transition: width 0.7s cubic-bezier(0.22,1,0.36,1);
+}
+
+/* ── VETOR TF-IDF ── */
+.ia-vector-section {
+    border-top: 1px solid #1e1e1e;
+    padding-top: 20px;
+}
+
+.ia-vector-section h4 {
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--text-dim);
+    margin-bottom: 12px;
+    font-weight: 500;
+}
+
+.ia-vector-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(86px, 1fr));
+    gap: 8px;
+}
+
+.vector-cell {
+    background: #1a1a1a;
+    border: 1px solid #242424;
+    border-radius: 8px;
+    padding: 8px;
+    text-align: center;
+    transition: 0.2s;
+}
+
+.vector-cell:hover {
+    border-color: var(--gold);
+}
+
+.vector-word {
+    font-size: 10px;
+    color: #555;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-bottom: 3px;
+}
+
+.vector-val {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--gold);
+}
+
+/* ══════════════════════════════════════════
+   LOJA — PRODUTOS
+══════════════════════════════════════════ */
+.loja {
+    max-width: 1200px;
+    margin: auto;
+    padding: 20px 20px 60px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 30px;
+}
+
+.produto {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    overflow: hidden;
+    text-align: center;
+    transition: 0.4s;
+}
+
+.produto:hover {
+    transform: translateY(-8px);
+    border-color: var(--gold);
+    box-shadow: 0 0 30px rgba(212,175,55,0.25);
+}
+
+.produto img {
+    width: 100%;
+    height: 280px;
+    object-fit: cover;
+}
+
+.produto h2 {
+    margin-top: 15px;
+    font-size: 20px;
+    font-weight: 500;
+}
+
+.descricao {
+    color: var(--text-muted);
+    font-size: 14px;
+    padding: 10px 15px;
+    line-height: 1.5;
+}
+
+.preco {
+    color: var(--gold);
+    font-size: 24px;
+    font-weight: 500;
+    margin: 8px 0;
+}
+
+.produto button,
+.btn-ver {
+    margin-bottom: 20px;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 30px;
+    background: var(--gold);
+    color: #000;
+    font-weight: 500;
+    font-size: 14px;
+    font-family: 'DM Sans', sans-serif;
+    cursor: pointer;
+    transition: 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.produto button:hover,
+.btn-ver:hover {
+    transform: scale(1.07);
+    box-shadow: 0 0 16px var(--gold), 0 0 32px rgba(212,175,55,0.5);
+}
+
+.produto button::before,
+.btn-ver::before {
+    content: '';
+    position: absolute;
+    top: 0; left: -100%;
+    width: 100%; height: 100%;
+    background: linear-gradient(120deg, transparent, rgba(255,255,255,0.5), transparent);
+    transition: 0.5s;
+}
+
+.produto button:hover::before,
+.btn-ver:hover::before {
+    left: 100%;
+}
+
+/* ══════════════════════════════════════════
+   MODAL
+══════════════════════════════════════════ */
+.modal {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0,0,0,0.88);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+}
+
+.modal-content {
+    background: var(--bg-card);
+    padding: 24px;
+    border-radius: 20px;
+    text-align: center;
+    width: 380px;
+    border: 1px solid var(--gold);
+    position: relative;
+    animation: modalOpen 0.3s ease;
+}
+
+@keyframes modalOpen {
+    from { transform: scale(0.75); opacity: 0; }
+    to   { transform: scale(1); opacity: 1; }
+}
+
+.modal-content img {
+    width: 100%;
+    border-radius: 12px;
+    margin-bottom: 12px;
+}
+
+.modal-content h2 {
+    margin: 10px 0 6px;
+    font-size: 22px;
+}
+
+.modal-content p {
+    color: var(--text-muted);
+    font-size: 14px;
+    margin-bottom: 5px;
+}
+
+#modalPrice {
+    color: var(--gold);
+    font-size: 22px;
+    font-weight: 500;
+    margin: 8px 0;
+}
+
+.modal-content button {
+    margin-top: 12px;
+    padding: 12px 28px;
+    background: var(--gold);
+    border: none;
+    border-radius: 30px;
+    color: #000;
+    font-weight: 500;
+    font-size: 14px;
+    font-family: 'DM Sans', sans-serif;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.modal-content button:hover {
+    background: var(--gold-light);
+    transform: scale(1.05);
+}
+
+.close {
+    position: absolute;
+    right: 14px;
+    top: 10px;
+    font-size: 26px;
+    cursor: pointer;
+    color: #555;
+    transition: 0.2s;
+    line-height: 1;
+}
+
+.close:hover {
+    color: #fff;
+}
+
+/* ══════════════════════════════════════════
+   RESPONSIVO
+══════════════════════════════════════════ */
+@media (max-width: 768px) {
+    header .interface {
+        flex-direction: column;
+        gap: 18px;
+    }
+
+    header nav ul {
+        gap: 20px;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    h1 {
+        font-size: 38px;
+        padding: 40px 20px 28px;
+    }
+
+    .ia-box {
+        padding: 24px 20px;
+    }
+
+    .ia-steps {
+        gap: 6px;
+    }
+
+    .ia-step {
+        font-size: 11px;
+        padding: 5px 10px;
+    }
+
+    .modal-content {
+        width: 92%;
+    }
+}

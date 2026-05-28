@@ -10,7 +10,7 @@ body{
     background-color: #000;
     color: #fff;
     min-height: 100vh;
-    padding-top: 80px; /* evita conteúdo ficar atrás do header */
+    padding-top: 80px;
 }
 
 /* CONTAINER */
@@ -30,7 +30,7 @@ body{
 }
 
 /* ===================== */
-/* HEADER FIXO NO TOPO */
+/* HEADER FIXO */
 /* ===================== */
 header{
     width: 100%;
@@ -88,7 +88,7 @@ header nav ul li a:hover{
     color: #D4AF37;
 }
 
-/* LINHA ANIMADA MENU */
+/* LINHA MENU */
 header nav ul li a::after{
     content: "";
     position: absolute;
@@ -104,9 +104,7 @@ header nav ul li a:hover::after{
     width: 100%;
 }
 
-/* ===================== */
-/* BOTÃO CONTATO PREMIUM */
-/* ===================== */
+/* BOTÃO CONTATO */
 .btn-contato button{
     padding: 10px 40px;
     font-size: 18px;
@@ -140,13 +138,16 @@ h2.titulo{
     color: #fff;
     font-size: 38px;
     text-align: center;
+    margin-bottom: 50px;
 }
 
 h2.titulo span{
     color: #D4AF37;
 }
 
+/* ===================== */
 /* TOPO */
+/* ===================== */
 section.topo-do-site{
     padding: 100px 4%;
     min-height: 100vh;
@@ -170,7 +171,9 @@ section.topo-do-site{
     line-height: 32px;
 }
 
+/* ===================== */
 /* ESPECIALIDADES */
+/* ===================== */
 section.especialidade{
     padding: 100px 4%;
 }
@@ -199,7 +202,9 @@ section.especialidade{
     margin: 15px 0;
 }
 
+/* ===================== */
 /* SOBRE */
+/* ===================== */
 section.sobre{
     padding: 120px 4%;
 }
@@ -248,7 +253,9 @@ section.sobre{
     text-align: justify;
 }
 
+/* ===================== */
 /* SOCIAL */
+/* ===================== */
 .btn-social button{
     width: 60px;
     height: 60px;
@@ -265,7 +272,9 @@ section.sobre{
     box-shadow: 0 0 20px #D4AF37;
 }
 
+/* ===================== */
 /* PORTFÓLIO */
+/* ===================== */
 section.portfolio{
     padding: 100px 4%;
     box-shadow: 0 0 40px rgba(212,175,55,0.3);
@@ -284,7 +293,63 @@ section.portfolio{
     transform: scale(1.03);
 }
 
+/* ===================== */
+/* ALBUM */
+/* ===================== */
+section.album{
+    padding: 100px 4%;
+}
+
+.album .flex{
+    justify-content: center;
+    gap: 30px;
+}
+
+.album-card{
+    width: 320px;
+    background: #0a0a0a;
+    border-radius: 20px;
+    overflow: hidden;
+    border: 1px solid rgba(212,175,55,0.2);
+    transition: .4s;
+}
+
+.album-card:hover{
+    transform: translateY(-8px);
+    border-color: #D4AF37;
+    box-shadow: 0 0 30px rgba(212,175,55,0.3);
+}
+
+.album-card img{
+    width: 100%;
+    height: 320px;
+    object-fit: cover;
+    transition: .4s;
+}
+
+.album-card:hover img{
+    transform: scale(1.05);
+}
+
+.album-info{
+    padding: 20px;
+    text-align: center;
+}
+
+.album-info h3{
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.album-info p{
+    color: #aaa;
+    font-size: 15px;
+    line-height: 24px;
+}
+
+/* ===================== */
 /* FORM */
+/* ===================== */
 .form-cadastro{
     background: #0a0a0a;
     width: 400px;
@@ -318,4 +383,76 @@ section.portfolio{
     border-radius: 30px;
     font-weight: bold;
     cursor: pointer;
+}
+
+/* ===================== */
+/* RESPONSIVO */
+/* ===================== */
+@media (max-width: 768px){
+
+    header .interface{
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    header nav ul{
+        gap: 20px;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .flex{
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .topo-do-site h1{
+        font-size: 38px;
+        line-height: 45px;
+    }
+
+    .topo-do-site p{
+        text-align: center;
+    }
+
+    h2.titulo{
+        font-size: 32px;
+    }
+
+    .sobre .txt-sobre{
+        padding: 30px;
+    }
+
+    .sobre .txt-sobre h2{
+        font-size: 34px;
+    }
+
+    .sobre .txt-sobre p{
+        text-align: center;
+    }
+
+    .img-port{
+        width: 100%;
+        max-width: 340px;
+        height: 420px;
+    }
+
+    .album-card{
+        width: 100%;
+        max-width: 340px;
+    }
+
+    .album-card img{
+        height: 280px;
+    }
+
+    .form-cadastro{
+        width: 90%;
+    }
+
+    .btn-contato{
+        width: 100%;
+        display: flex;
+        justify-content: center;
+    }
 }

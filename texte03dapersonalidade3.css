@@ -44,7 +44,6 @@ header .interface {
     position: relative;
 }
 
-/* LOGO HOVER BRILHO */
 .logo h2:hover,
 .logo a:hover {
     color: #FFD86B;
@@ -88,21 +87,17 @@ header nav ul li a:hover {
     display: inline-block;
 }
 
-/* HOVER BOTÃO */
 .btn-contato button:hover,
 .btn-contato .btn:hover {
     color: #FFD86B;
     transform: scale(1.08);
-
     border-color: #FFD86B;
-
     text-shadow:
         0 0 5px #D4AF37,
         0 0 10px #D4AF37,
         0 0 20px #D4AF37,
         0 0 40px rgba(212, 175, 55, 0.8),
         0 0 80px rgba(212, 175, 55, 0.5);
-
     box-shadow:
         0 0 10px rgba(212, 175, 55, 0.4),
         0 0 25px rgba(212, 175, 55, 0.3);
@@ -204,5 +199,127 @@ h1 span {
 
     h1 {
         font-size: 34px;
+    }
+}
+
+/* ============================= */
+/* MODAL (NOVO - NÃO QUEBRA NADA)
+/* ============================= */
+/* BOTÃO PRODUTO + MODAL (BRILHO GOLD) */
+
+.produto button,
+.modal-content button {
+    margin-bottom: 20px;
+    padding: 12px 22px;
+    border: none;
+    border-radius: 30px;
+    background: #D4AF37;
+    color: #000;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+/* HOVER COM BRILHO */
+.produto button:hover,
+.modal-content button:hover {
+    transform: scale(1.07);
+    box-shadow:
+        0 0 10px #D4AF37,
+        0 0 25px #D4AF37,
+        0 0 50px rgba(212, 175, 55, 0.8);
+}
+
+/* EFEITO DE LUZ PASSANDO */
+.produto button::before,
+.modal-content button::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        120deg,
+        transparent,
+        rgba(255, 255, 255, 0.6),
+        transparent
+    );
+    transition: 0.5s;
+}
+
+/* ANIMAÇÃO DO BRILHO PASSANDO */
+.produto button:hover::before,
+.modal-content button:hover::before {
+    left: 100%;
+}
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.85);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+}
+
+.modal-content {
+    background: #111;
+    padding: 20px;
+    border-radius: 20px;
+    text-align: center;
+    width: 360px;
+    border: 1px solid #D4AF37;
+    position: relative;
+    animation: abrir 0.3s ease;
+}
+
+.modal-content img {
+    width: 100%;
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+
+.modal-content h2 {
+    margin: 10px 0;
+}
+
+.modal-content p {
+    color: #aaa;
+    margin-bottom: 5px;
+}
+
+.modal-content button {
+    margin-top: 10px;
+    padding: 10px 20px;
+    background: #D4AF37;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+}
+
+.close {
+    position: absolute;
+    right: 12px;
+    top: 8px;
+    font-size: 26px;
+    cursor: pointer;
+    color: #fff;
+}
+
+/* animação */
+@keyframes abrir {
+    from {
+        transform: scale(0.7);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
     }
 }

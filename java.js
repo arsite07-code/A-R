@@ -1,20 +1,23 @@
-const formulario = document.querySelector("#perguntas");
+const menuMobile = document.getElementById("menu-mobile");
+const menuDesktop = document.getElementById("menu-desktop");
 
-formulario.addEventListener("submit", (e) => {
-    e.preventDefault();
+// Evita erro quando a página não tem o menu mobile (ex: index.html)
+if (menuMobile && menuDesktop) {
+    const icon = menuMobile.querySelector("i");
 
-    const nome = document.querySelector("#nome").value;
-    const email = document.querySelector("#email").value;
-    const date = document.querySelector("#date").value;
+    if (icon) {
+        menuMobile.addEventListener("click", () => {
+            menuDesktop.classList.toggle("active");
 
-    const candidato = [
-        nome,
-        email,
-        date
-    ];
+            // troca ícone ☰ ↔ ✖
+            if (menuDesktop.classList.contains("active")) {
+                icon.classList.remove("bi-list");
+                icon.classList.add("bi-x-lg");
+            } else {
+                icon.classList.remove("bi-x-lg");
+                icon.classList.add("bi-list");
+            }
+        });
+    }
+}
 
-    console.log(candidato);
-
-    localStorage.setItem("candidato", JSON.stringify(candidato));
-    formulario.reset()
-});

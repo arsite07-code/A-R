@@ -87,10 +87,7 @@ header nav ul li a:hover{
     color: #D4AF37;
 }
 
-/* ========================= */
-/* BOTÃO CONTATO (ATUALIZADO) */
-/* ========================= */
-
+/* BOTÃO CONTATO */
 .btn-contato .btn{
     display: inline-block;
     padding: 12px 28px;
@@ -284,18 +281,18 @@ section.portfolio .flex{
     gap: 30px;
 }
 
+/* EFEITO DE ROLAGEM REMOVIDO */
 .img-port{
     width: 360px;
     height: 460px;
     border-radius: 20px;
     background-size: cover;
-    background-position: 100% 0%;
-    transition: 5s;
+    background-position: center;
+    transition: 0.3s;
     border: 1px solid rgba(212, 175, 55, 0.2);
 }
 
 .img-port:hover{
-    background-position: 100% 100%;
     transform: translateY(-8px);
     box-shadow: 0 0 25px rgba(212, 175, 55, 0.3);
 }
@@ -361,10 +358,25 @@ section.portfolio .flex{
 /* RESPONSIVO */
 @media (max-width: 768px){
 
-    header nav ul{
+    /* HEADER */
+    header .interface{
+        flex-direction: column;
         gap: 20px;
     }
 
+    header nav ul{
+        gap: 20px;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    /* FLEX GERAL */
+    .flex{
+        flex-direction: column;
+        text-align: center;
+    }
+
+    /* TOPO SITE */
     .topo-do-site .flex,
     section.sobre .flex{
         flex-direction: column;
@@ -376,16 +388,46 @@ section.portfolio .flex{
         line-height: 45px;
     }
 
+    .topo-do-site p{
+        text-align: center;
+    }
+
+    /* TITULOS */
     h2.titulo{
         font-size: 32px;
     }
 
+    /* SOBRE */
+    .sobre .txt-sobre h2{
+        font-size: 34px;
+    }
+
+    .sobre .txt-sobre p{
+        text-align: center;
+    }
+
+    /* ESPECIALIDADES */
+    .especialidade .especialidade-box{
+        width: 100%;
+    }
+
+    /* PORTFOLIO */
     .img-port{
         width: 100%;
         max-width: 340px;
+        height: 420px;
     }
 
+    /* FORM */
     .form-cadastro{
         width: 90%;
+        padding: 30px;
+    }
+
+    /* BOTÃO CONTATO */
+    .btn-contato{
+        width: 100%;
+        display: flex;
+        justify-content: center;
     }
 }

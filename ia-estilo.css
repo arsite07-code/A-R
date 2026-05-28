@@ -1,0 +1,160 @@
+/* IA DE ESTILO */
+
+.ia-style {
+    padding: 60px 4%;
+}
+
+.ia-style .ia-box {
+    max-width: 820px;
+    margin: 0 auto;
+    background: linear-gradient(145deg, #141414 0%, #0e0e0e 100%);
+    border: 1px solid rgba(212, 175, 55, 0.25);
+    border-radius: 24px;
+    padding: 52px 48px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.ia-style .ia-box::before {
+    content: '';
+    position: absolute;
+    top: -1px; left: 20%; right: 20%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(212,175,55,0.7), transparent);
+}
+
+.ia-style .ia-box::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: radial-gradient(ellipse 60% 40% at 50% 0%, rgba(212,175,55,0.05) 0%, transparent 70%);
+    pointer-events: none;
+}
+
+.ia-icon-wrap {
+    width: 72px;
+    height: 72px;
+    margin: 0 auto 20px;
+    border-radius: 50%;
+    border: 1px solid rgba(212,175,55,0.3);
+    background: rgba(212,175,55,0.07);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.ia-icon-wrap i {
+    font-size: 32px;
+    color: #D4AF37;
+}
+
+.ia-style h3 {
+    font-size: 26px;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    margin-bottom: 10px;
+    color: #f5f0e0;
+}
+
+.ia-style p {
+    color: #888;
+    line-height: 1.7;
+    font-size: 15px;
+    margin-bottom: 28px;
+    max-width: 540px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.ia-input {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+}
+
+.ia-input input {
+    flex: 1;
+    min-width: 240px;
+    padding: 14px 18px;
+    border-radius: 14px;
+    border: 1px solid rgba(255,255,255,0.08);
+    background: rgba(255,255,255,0.04);
+    color: #fff;
+    outline: none;
+    font-size: 14px;
+    transition: border-color 0.2s, background 0.2s;
+}
+
+.ia-input input::placeholder {
+    color: #555;
+}
+
+.ia-input input:focus {
+    border-color: rgba(212, 175, 55, 0.5);
+    background: rgba(212, 175, 55, 0.04);
+}
+
+.ia-input button {
+    padding: 14px 28px;
+    border: none;
+    border-radius: 30px;
+    background: #D4AF37;
+    color: #000;
+    font-weight: 700;
+    font-size: 14px;
+    letter-spacing: 0.03em;
+    cursor: pointer;
+    transition: opacity 0.2s, transform 0.15s;
+}
+
+.ia-input button:hover {
+    opacity: 0.9;
+    transform: translateY(-1px);
+}
+
+.ia-input button:active {
+    transform: translateY(0);
+}
+
+.resultado-ia {
+    margin-top: 24px;
+    border-top: 1px solid rgba(255,255,255,0.06);
+    padding-top: 20px;
+}
+
+.resultado-ia h4 {
+    font-size: 13px;
+    color: #666;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 14px;
+}
+
+.resultado-ia ul {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: center;
+}
+
+.resultado-ia li {
+    padding: 8px 16px;
+    border: 1px solid rgba(212, 175, 55, 0.3);
+    border-radius: 30px;
+    color: #D4AF37;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    background: rgba(212, 175, 55, 0.05);
+}
+
+@media (max-width: 768px) {
+    .ia-style { padding: 40px 4%; }
+    .ia-style .ia-box { padding: 30px 20px; }
+}
